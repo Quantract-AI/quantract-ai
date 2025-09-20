@@ -14,9 +14,14 @@ const Header = () => {
         <div className="header-content">
           {/* Logo */}
           <Link href="/" className="header-logo">
-            {/* add logo SVG or image here */}
-            <Image src="/images/quantractai.png" alt="QUANTRACT AI Logo" />
-
+            <div className="header-logo-icon">
+              <Image
+                src="/images/logo.png"
+                alt="QUANTRACT AI Logo"
+                width={50}
+                height={50}
+              />
+            </div>
             <div className="header-logo-text">
               <h1>QUANTRACT AI</h1>
             </div>

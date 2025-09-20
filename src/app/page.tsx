@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./page.css";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -36,11 +37,11 @@ export default function Home() {
 
               <div className="hero-stats">
                 <div className="hero-stat">
-                  <div className="hero-stat-number">100+</div>
+                  <div className="hero-stat-number">10+</div>
                   <div className="hero-stat-label">AI Solutions</div>
                 </div>
                 <div className="hero-stat">
-                  <div className="hero-stat-number">50+</div>
+                  <div className="hero-stat-number">5+</div>
                   <div className="hero-stat-label">Happy Clients</div>
                 </div>
                 <div className="hero-stat">
@@ -56,7 +57,14 @@ export default function Home() {
                 <div className="hero-card-content">
                   <div className="hero-card-inner">
                     <div className="hero-logo">
-                      <span className="hero-logo-text">Q</span>
+                      <div className="header-logo-icon">
+                        <Image
+                          src="/images/logo.png"
+                          alt="QUANTRACT AI Logo"
+                          width={50}
+                          height={50}
+                        />
+                      </div>
                     </div>
                     <h3 className="hero-brand">QUANTRACT AI</h3>
                     <p className="hero-tagline">Intelligence Redefined</p>

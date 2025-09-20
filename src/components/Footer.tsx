@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./Footer.css";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -9,8 +10,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="footer-company-info">
             <div className="footer-logo">
-              <div className="footer-logo-icon">
-                <span>Q</span>
+              <div className="header-logo-icon">
+                <Image
+                  src="/images/logo.png"
+                  alt="QUANTRACT AI Logo"
+                  width={50}
+                  height={50}
+                />
               </div>
               <div className="footer-logo-text">
                 <h3>QUANTRACT AI</h3>
