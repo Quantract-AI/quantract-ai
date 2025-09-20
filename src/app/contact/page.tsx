@@ -88,10 +88,10 @@ export default function Contact() {
                     </h3>
                     <p className="text-gray-600">Drop us a line anytime</p>
                     <a
-                      href="mailto:contact@quantractai.com"
+                      href="mailto:quantractai@gmail.com"
                       className="text-[#f1c40f] hover:text-yellow-400 font-medium"
                     >
-                      contact@quantractai.com
+                      quantractai@gmail.com
                     </a>
                   </div>
                 </div>
@@ -112,12 +112,12 @@ export default function Contact() {
                     </h3>
                     <p className="text-gray-600">Follow our latest updates</p>
                     <a
-                      href="https://linkedin.com/company/quantract-ai"
+                      href="https://www.linkedin.com/company/quantract-ai"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#f1c40f] hover:text-yellow-400 font-medium"
                     >
-                      linkedin.com/company/quantract-ai
+                      https://www.linkedin.com/company/quantract-ai
                     </a>
                   </div>
                 </div>

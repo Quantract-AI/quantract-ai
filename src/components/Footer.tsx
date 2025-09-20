@@ -30,7 +30,7 @@ const Footer = () => {
             </p>
             <div className="footer-social">
               <a
-                href="https://linkedin.com/company/quantract-ai"
+                href="https://www.linkedin.com/company/quantract-ai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-social-link"
@@ -44,7 +44,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="mailto:contact@quantractai.com"
+                href="mailto:quantractai@gmail.com"
                 className="footer-social-link"
               >
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
