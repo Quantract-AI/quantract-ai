@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "Quantract AI - Transforming Ideas into Intelligent Impact",
   description:
     "Leading AI solutions company specializing in intelligent automation, machine learning, and innovative technology solutions.",
+  icons: {
+    icon: "/images/logo.svg",
+  },
 };
 
 import Header from "@/components/Header";
