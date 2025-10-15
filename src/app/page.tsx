@@ -1,6 +1,6 @@
 import Link from "next/link";
 import "./page.css";
-import Image from "next/image";
+import ImageSlider from "@/components/ImageSlider";
 
 export default function Home() {
   return (
@@ -51,27 +51,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Side - Visual */}
+            {/* Right Side - Image Slider */}
             <div className="hero-visual">
-              <div className="hero-card">
-                <div className="hero-card-content">
-                  <div className="hero-card-inner">
-                    <div className="hero-logo">
-                      <div className="header-logo-icon">
-                        <Image
-                          src="/images/logo.png"
-                          alt="QUANTRACT AI Logo"
-                          width={50}
-                          height={50}
-                        />
-                      </div>
-                    </div>
-                    <h3 className="hero-brand">QUANTRACT AI</h3>
-                    <p className="hero-tagline">Intelligence Redefined</p>
-                  </div>
-                </div>
-              </div>
-              <div className="hero-card-bg"></div>
+              <ImageSlider />
             </div>
           </div>
         </div>
