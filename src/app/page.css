@@ -153,6 +153,17 @@
   animation: pulse 2s infinite;
 }
 
+@media (max-width: 768px) {
+  .hero-float-1 {
+    width: 3rem;
+    height: 3rem;
+    top: 2rem;
+    right: 1rem;
+    opacity: 0.5;
+    z-index: -1; 
+  }
+}
+
 .hero-float-2 {
   position: absolute;
   bottom: 5rem;
@@ -162,6 +173,17 @@
   background-color: #e5e7eb;
   border-radius: 50%;
   animation: bounce 1s infinite;
+}
+
+@media (max-width: 768px) {
+  .hero-float-2 {
+    width: 5rem;
+    height: 5rem;
+    bottom: 2rem;
+    left: 1rem;
+    opacity: 0.5;
+    z-index: -1; 
+  }
 }
 
 /* Features Section */
