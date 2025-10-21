@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -10,18 +11,47 @@ export default function Contact() {
     company: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
+    null
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Initialize EmailJS with Public Key on component mount
+  useEffect(() => {
+    emailjs.init("t5ALyM92h9Wsm765Ygfjerlgsdljfef sfsfdjf"); // Replace with your EmailJS Public Key
+  }, []);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
-    // You can integrate with your preferred form handling service
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", company: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const result = await emailjs.send(
+        "QUANTRACTAI-Mail", // Replace with your EmailJS Service ID
+        "template_quant", // Replace with your EmailJS Template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          company: formData.company,
+          message: formData.message,
+        }
+      );
+      console.log("Form submitted successfully via EmailJS:", result.text);
+      setSubmitStatus("success");
+      alert("Thank you for your message! We'll get back to you soon.");
+      setFormData({ name: "", email: "", company: "", message: "" });
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      setSubmitStatus("error");
+      alert("Failed to send message. Please check your input and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({
       ...formData,
@@ -249,10 +279,24 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#f1c40f] text-[#393939] py-4 px-6 rounded-xl font-semibold text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className={`w-full bg-[#f1c40f] text-[#393939] py-4 px-6 rounded-xl font-semibold text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 ${
+                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
+
+                {submitStatus === "success" && (
+                  <p className="text-sm text-green-600 text-center">
+                    Message sent successfully!
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-sm text-red-600 text-center">
+                    Failed to send message. Please try again.
+                  </p>
+                )}
 
                 <p className="text-sm text-gray-600 text-center">
                   By submitting this form, you agree to our privacy policy and
