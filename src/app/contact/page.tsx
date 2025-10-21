@@ -1,25 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import Link from "next/link";
 
 export default function Contact() {
+  const form = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
-    // You can integrate with your preferred form handling service
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", company: "", message: "" });
-  };
-
+  // ✅ Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -27,6 +22,30 @@ export default function Contact() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  // ✅ Handle form submission
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!form.current) return;
+
+    emailjs
+      .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", form.current, {
+        publicKey: "YOUR_PUBLIC_KEY",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+          setStatus("success");
+          setFormData({ name: "", email: "", company: "", message: "" });
+          form.current?.reset();
+        },
+        (error) => {
+          console.error("FAILED...", error.text);
+          setStatus("error");
+        }
+      );
   };
 
   return (
@@ -66,6 +85,7 @@ export default function Contact() {
 
               {/* Contact Methods */}
               <div className="space-y-6">
+                {/* Email */}
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-[#f1c40f] rounded-xl flex items-center justify-center">
                     <svg
@@ -96,6 +116,7 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* LinkedIn */}
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-[#f1c40f] rounded-xl flex items-center justify-center">
                     <svg
@@ -117,11 +138,12 @@ export default function Contact() {
                       rel="noopener noreferrer"
                       className="text-[#f1c40f] hover:text-yellow-400 font-medium"
                     >
-                      https://www.linkedin.com/company/quantract-ai
+                      linkedin.com/company/quantract-ai
                     </a>
                   </div>
                 </div>
 
+                {/* Response Time */}
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-[#f1c40f] rounded-xl flex items-center justify-center">
                     <svg
@@ -171,7 +193,8 @@ export default function Contact() {
               <h3 className="text-2xl font-bold text-[#393939] mb-6">
                 Send Us a Message
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+
+              <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
@@ -253,6 +276,17 @@ export default function Contact() {
                 >
                   Send Message
                 </button>
+
+                {status === "success" && (
+                  <p className="text-green-600 text-center">
+                    ✅ Message sent successfully!
+                  </p>
+                )}
+                {status === "error" && (
+                  <p className="text-red-600 text-center">
+                    ❌ Failed to send message. Please try again.
+                  </p>
+                )}
 
                 <p className="text-sm text-gray-600 text-center">
                   By submitting this form, you agree to our privacy policy and
