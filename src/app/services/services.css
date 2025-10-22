@@ -1,0 +1,63 @@
+/* Services Page Styles */
+
+/* Hero Section */
+.services-hero {
+  position: relative;
+  background: linear-gradient(to bottom right, #393939, #374151);
+  color: white;
+  padding: 5rem 0;
+}
+
+.services-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.services-hero-content {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.services-hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .services-hero-title {
+    font-size: 3.75rem;
+  }
+}
+
+.services-hero-highlight {
+  color: #f1c40f;
+}
+
+.services-hero-description {
+  font-size: 1.25rem;
+  color: #e5e7eb;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.services-hero-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.services-hero-wave svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3rem;
+}
+
+.services-hero-wave .wave-fill {
+  fill: #ffffff;
+}

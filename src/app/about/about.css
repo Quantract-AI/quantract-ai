@@ -59,6 +59,10 @@
 }
 
 .about-hero-wave .wave-fill {
+  fill: #ffffff;
+}
+
+.about-hero-wave .wave-fill {
   fill: white;
 }
 
