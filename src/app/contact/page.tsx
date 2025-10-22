@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -10,22 +11,79 @@ export default function Contact() {
     company: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+  
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("LQnv-iAx15Q_d1SWQ");
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
-    // You can integrate with your preferred form handling service
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", company: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+    
+    // EmailJS configuration replace them
+    const serviceId = 'service_o706ifb';   // Your EmailJS service ID
+    const templateId = 'template_loplpkr'; // Your EmailJS template ID 
+    const publicKey = 'LQnv-iAx15Q_d1SWQ'; // Your EmailJS public key
+    
+    // Create template parameters object
+    const templateParams = {
+      // Only include the fields needed for the template variables
+      // EmailJS will handle the sending email based on your service configuration
+      email: formData.email,          // User's email for reply purposes
+      name: formData.name,            // Name from form
+      message: formData.message,      // Message content
+      company: formData.company || '', // Company name
+      reply_to: formData.email        // Reply-to address
+    };
+    
+    console.log('Template parameters:', templateParams);
+    
+    // Use the send method with explicit parameters
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then((result) => {
+        console.log('Email successfully sent!', result.text);
+        setFormData({ name: "", email: "", company: "", message: "" });
+        setSubmitStatus({ 
+          type: 'success', 
+          message: "Thank you for your message! We'll get back to you soon."
+        });
+      })
+      .catch((error) => {
+        console.log('Failed to send email:', error);
+        console.log('Form data:', formData);
+        console.log('Error details:', error.text || error.toString());
+        setSubmitStatus({ 
+          type: 'error', 
+          message: `Failed to send message: ${error.text || error.toString()}`
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
+    // Map EmailJS field names to our state properties
+    const fieldMap: {[key: string]: string} = {
+      'name': 'name',
+      'from_email': 'email',
+      'company': 'company',
+      'message': 'message'
+    };
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [fieldMap[name] || name]: value,
     });
   };
 
@@ -171,6 +229,11 @@ export default function Contact() {
               <h3 className="text-2xl font-bold text-[#393939] mb-6">
                 Send Us a Message
               </h3>
+              {submitStatus.type && (
+                <div className={`p-4 mb-6 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {submitStatus.message}
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
@@ -201,7 +264,7 @@ export default function Contact() {
                   <input
                     type="email"
                     id="email"
-                    name="email"
+                    name="from_email"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -249,9 +312,10 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#f1c40f] text-[#393939] py-4 px-6 rounded-xl font-semibold text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className={`w-full bg-[#f1c40f] text-[#393939] py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 transform ${isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-yellow-400 hover:scale-105'}`}
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
 
                 <p className="text-sm text-gray-600 text-center">
@@ -313,3 +377,255 @@ export default function Contact() {
     </div>
   );
 }
+
+
+
+
+
+//The email js auto reply mail template , 
+// paste this into the template html editor in emailjs
+
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Thank You for Contacting Quantract AI</title>
+//   <style>
+//     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+//     body {
+//       font-family: 'Poppins', Arial, sans-serif;
+//       line-height: 1.6;
+//       color: #4a4a4a;
+//       margin: 0;
+//       padding: 0;
+//       background-color: #f7f7f7;
+//     }
+    
+//     .email-container {
+//       max-width: 600px;
+//       margin: 0 auto;
+//       background-color: #ffffff;
+//       border-radius: 12px;
+//       overflow: hidden;
+//       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+//     }
+    
+//     .email-header {
+//       background: linear-gradient(135deg, #f1c40f 0%, #ffdb4d 100%);
+//       padding: 30px 20px;
+//       text-align: center;
+//     }
+    
+//     .company-logo {
+//       margin-bottom: 20px;
+//       width: 80px;
+//       height: auto;
+//     }
+    
+//     .header-title {
+//       color: #393939;
+//       font-size: 28px;
+//       font-weight: 700;
+//       margin: 0;
+//     }
+    
+//     .email-body {
+//       padding: 30px 40px;
+//       color: #4a4a4a;
+//     }
+    
+//     .greeting {
+//       font-size: 22px;
+//       color: #393939;
+//       font-weight: 600;
+//       margin-top: 0;
+//       margin-bottom: 20px;
+//     }
+    
+//     .services-section {
+//       margin: 30px 0;
+//     }
+    
+//     .services-title {
+//       font-size: 18px;
+//       color: #393939;
+//       font-weight: 600;
+//       margin-bottom: 15px;
+//       position: relative;
+//       padding-bottom: 10px;
+//     }
+    
+//     .services-title:after {
+//       content: '';
+//       position: absolute;
+//       bottom: 0;
+//       left: 0;
+//       width: 50px;
+//       height: 3px;
+//       background-color: #f1c40f;
+//     }
+    
+//     .services-grid {
+//       display: grid;
+//       grid-template-columns: repeat(2, 1fr);
+//       gap: 15px;
+//     }
+    
+//     .service-item {
+//       display: flex;
+//       align-items: center;
+//     }
+    
+//     .service-bullet {
+//       width: 8px;
+//       height: 8px;
+//       background-color: #f1c40f;
+//       border-radius: 50%;
+//       margin-right: 10px;
+//       flex-shrink: 0;
+//     }
+    
+//     .cta-button {
+//       display: inline-block;
+//       background-color: #393939;
+//       color: #ffffff !important;
+//       text-decoration: none;
+//       padding: 12px 30px;
+//       border-radius: 30px;
+//       font-weight: 600;
+//       margin: 15px 0;
+//       text-align: center;
+//       transition: background-color 0.3s ease;
+//     }
+    
+//     .cta-button:hover {
+//       background-color: #505050;
+//     }
+    
+//     .email-footer {
+//       background-color: #393939;
+//       color: #ffffff;
+//       padding: 25px 40px;
+//       text-align: center;
+//       font-size: 14px;
+//     }
+    
+//     .tagline {
+//       font-style: italic;
+//       color: #f1c40f;
+//       margin-bottom: 15px;
+//       font-weight: 500;
+//     }
+    
+//     .contact-info {
+//       margin: 20px 0;
+//     }
+    
+//     .contact-info a {
+//       color: #f1c40f;
+//       text-decoration: none;
+//     }
+    
+//     .social-links {
+//       margin: 15px 0;
+//     }
+    
+//     .social-icon {
+//       display: inline-block;
+//       margin: 0 8px;
+//       width: 32px;
+//       height: 32px;
+//       background-color: #f1c40f;
+//       border-radius: 50%;
+//       line-height: 32px;
+//       text-align: center;
+//     }
+    
+//     .divider {
+//       height: 1px;
+//       background-color: rgba(255,255,255,0.2);
+//       margin: 20px 0;
+//     }
+    
+//     .footnote {
+//       font-size: 12px;
+//       color: rgba(255,255,255,0.7);
+//     }
+    
+//     @media screen and (max-width: 600px) {
+//       .email-body {
+//         padding: 25px;
+//       }
+      
+//       .services-grid {
+//         grid-template-columns: 1fr;
+//       }
+      
+//       .greeting {
+//         font-size: 20px;
+//       }
+//     }
+//   </style>
+// </head>
+// <body>
+//   <div class="email-container">
+//     <div class="email-header">
+//       <img src="https://i.postimg.cc/vmpLJyW3/logo.png" alt="Quantract AI Logo" class="company-logo">
+//       <h1 class="header-title">Thank You for Reaching Out!</h1>
+//     </div>
+    
+//     <div class="email-body">
+//       <p class="greeting">Hello {{name}},</p>
+      
+      
+//       <p>Thank you for contacting <strong>Quantract AI</strong>. We’ve received your message and appreciate your interest in our AI solutions. A member of our team will review your inquiry and get back to you within <strong>24 hours</strong>.</p>
+      
+//       <div class="services-section">
+//         <h3 class="services-title">Our AI Solutions</h3>
+//         <div class="services-grid">
+//           <div class="service-item">
+//             <div class="service-bullet"></div>
+//             <span>Machine Learning Solutions</span>
+//           </div>
+//           <div class="service-item">
+//             <div class="service-bullet"></div>
+//             <span>Intelligent Automation</span>
+//           </div>
+//           <div class="service-item">
+//             <div class="service-bullet"></div>
+//             <span>AI Strategy Consulting</span>
+//           </div>
+//           <div class="service-item">
+//             <div class="service-bullet"></div>
+//             <span>Custom AI Development</span>
+//           </div>
+//         </div>
+//       </div>
+      
+//       <p>While you wait, feel free to explore more about our services and expertise on our website.</p>
+      
+//       <a href="https://www.linkedin.com/company/quantract-ai/posts/?feedView=all" class="cta-button">Explore Our Services</a>
+      
+//       <p>We look forward to discussing how we can help transform your business with cutting-edge AI innovation.</p>
+      
+//       <p>Best Regards,<br><strong>The Quantract AI Team</strong></p>
+//     </div>
+    
+//     <div class="email-footer">
+//       <p class="tagline">Transforming Ideas into Intelligent Impact</p>
+      
+//       <div class="contact-info">
+//         <p>Need immediate assistance? Contact us:</p>
+//         <p>Email: <a href="mailto:quantractai@gmail.com">quantractai@gmail.com</a></p>
+//         <p>Connect: <a href="https://www.linkedin.com/company/quantract-ai/posts/?feedView=all" target="_blank">LinkedIn</a></p>
+//       </div>
+     
+//       <div class="divider"></div>
+      
+//       <p class="footnote">This is an automated response. Please do not reply to this email.</p>
+//     </div>
+//   </div>
+// </body>
+// </html>
