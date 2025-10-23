@@ -1,26 +1,25 @@
 import Link from "next/link";
+import "./services.css";
 
 export default function Services() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#f1c40f] to-yellow-400 py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-6xl font-bold text-[#393939] mb-6">
-              AI Solutions That <span className="text-white">Transform</span>{" "}
-              Businesses
+      <section className="services-hero">
+        <div className="services-hero-container">
+          <div className="services-hero-content">
+            <h1 className="services-hero-title">
+              Our <span className="services-hero-highlight">AI Solutions</span>
             </h1>
-            <p className="text-xl text-[#393939]/80 max-w-3xl mx-auto">
+            <p className="services-hero-description">
               Discover our comprehensive suite of AI services designed to
               automate processes, enhance decision-making, and accelerate your
               digital transformation journey.
             </p>
           </div>
         </div>
-        <div className="absolute -bottom-1 left-0 w-full overflow-hidden">
+        <div className="services-hero-wave">
           <svg
-            className="relative block w-full h-12"
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1200 120"
@@ -28,7 +27,7 @@ export default function Services() {
           >
             <path
               d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-              className="fill-white"
+              className="wave-fill"
             ></path>
           </svg>
         </div>
