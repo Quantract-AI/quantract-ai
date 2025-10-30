@@ -77,6 +77,50 @@
   color: var(--quantract-yellow);
 }
 
+/* Dropdown styles */
+.header-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.header-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  min-width: 12rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.header-nav-item:hover .header-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-dropdown-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--quantract-gray);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.25rem;
+}
+
+.header-dropdown-link:hover {
+  background-color: #f3f4f6;
+  color: var(--quantract-yellow);
+}
+
 .header-cta-button {
   background-color: var(--quantract-yellow);
   color: var(--quantract-gray);

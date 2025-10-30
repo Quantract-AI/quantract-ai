@@ -38,6 +38,14 @@ const Header = () => {
             <Link href="/services" className="header-nav-link">
               Services
             </Link>
+            <div className="header-nav-item">
+              <Link href="/team" className="header-nav-link">Our Team</Link>
+              <div className="header-dropdown">
+                <Link href="/career" className="header-dropdown-link">
+                  Career
+                </Link>
+              </div>
+            </div>
             <Link href="/contact" className="header-nav-link">
               Contact
             </Link>
@@ -81,6 +89,20 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
+              </Link>
+              <Link
+                href="/team"
+                className="header-nav-link"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Our Team
+              </Link>
+              <Link
+                href="/career"
+                className="header-nav-link"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Career
               </Link>
               <Link
                 href="/contact"
