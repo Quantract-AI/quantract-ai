@@ -16,6 +16,12 @@
   padding: 1rem;
 }
 
+@media (max-width: 768px) {
+  .header-nav {
+    padding: 0.75rem 1rem; /* Slightly reduced padding on mobile */
+  }
+}
+
 .header-content {
   display: flex;
   align-items: center;
