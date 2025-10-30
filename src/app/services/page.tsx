@@ -494,8 +494,7 @@ export default function Services() {
               >
                 Schedule Free Consultation
               </Link>
-              <Link
-                href="/about"
+              <Link href="/team"
                 className="bg-[#f1c40f] text-[#393939] px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105"
               >
                 Learn About Our Team
