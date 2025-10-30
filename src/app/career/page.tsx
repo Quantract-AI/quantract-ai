@@ -9,14 +9,14 @@ const jobListings = {
       location: "Remote",
       type: "Full-time",
       description: "We're looking for an experienced AI Engineer to lead the development of our core AI solutions and mentor junior team members.",
-      applyLink: "/career/apply/senior-ai-engineer"
+      applyLink: "/career/apply"
     },
     {
       title: "Machine Learning Engineer",
       location: "Hybrid",
       type: "Full-time",
       description: "Join our ML team to develop and deploy state-of-the-art machine learning models for our enterprise clients.",
-      applyLink: "/career/apply/ml-engineer"
+      applyLink: "/career/apply"
     }
   ],
   research: [
@@ -25,7 +25,7 @@ const jobListings = {
       location: "Remote",
       type: "Full-time",
       description: "Lead research initiatives in advanced AI technologies and contribute to the development of innovative solutions.",
-      applyLink: "/career/apply/research-scientist"
+      applyLink: "/career/apply"
     }
   ],
   product: [
@@ -34,14 +34,14 @@ const jobListings = {
       location: "Remote",
       type: "Full-time",
       description: "Drive the product vision for our AI solutions and work closely with engineering teams to deliver value to our clients.",
-      applyLink: "/career/apply/product-manager"
+      applyLink: "/career/apply"
     },
     {
       title: "UX Designer",
       location: "Remote",
       type: "Full-time",
       description: "Design intuitive and user-friendly interfaces for our AI-powered applications and tools.",
-      applyLink: "/career/apply/ux-designer"
+      applyLink: "/career/apply"
     }
   ]
 };

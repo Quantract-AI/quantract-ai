@@ -5,7 +5,13 @@
   position: relative;
   background: linear-gradient(to bottom right, #393939, #374151);
   color: white;
-  padding: 3rem 0 5rem;
+  padding: 6rem 0 5rem;
+}
+
+@media (max-width: 768px) {
+  .team-hero {
+    padding: 6rem 0 3rem;
+  }
 }
 
 .team-hero-container {
@@ -18,6 +24,7 @@
   max-width: 64rem;
   margin: 0 auto;
   text-align: center;
+  padding: 0 1rem;
 }
 
 .team-hero-title {
@@ -32,6 +39,19 @@
   }
 }
 
+@media (max-width: 768px) {
+  .team-hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-hero-title {
+    font-size: 2rem;
+  }
+}
+
 .team-hero-highlight {
   color: #f1c40f;
 }
@@ -41,6 +61,14 @@
   color: #e5e7eb;
   max-width: 48rem;
   margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .team-hero-description {
+    font-size: 1.125rem;
+    padding: 0 1.5rem;
+  }
 }
 
 .team-hero-wave {
@@ -49,13 +77,26 @@
   left: 0;
   width: 100%;
   overflow: hidden;
+  height: 3rem;
 }
 
 .team-hero-wave svg {
   position: relative;
   display: block;
-  width: 100%;
-  height: 3rem;
+  width: calc(100% + 1.3px);
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .team-hero-wave {
+    height: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-hero-wave {
+    height: 1.5rem;
+  }
 }
 
 .team-hero-wave .wave-fill {
